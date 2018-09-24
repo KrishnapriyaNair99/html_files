@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <script>
+            var n=prompt("enter the lines: ");
+            var i,j;
+            for(i=1;i<=n;i++)
+            {
+                for(j=1;j<=n-i;j++)
+                    document.write("<center>");
+                for(j=i;j<=i+i-1;j++)
+                    document.write(j%10+" ");
+                for(j=j-2;j>=i;j--)
+                    document.write(j%10+" ");
+                document.write("<br>");
+            }
+        </script>
+    </head>
+</html>

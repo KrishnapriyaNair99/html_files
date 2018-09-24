@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script>
+            var num=prompt("enter the lines");
+            var i, k, number=1, j;
+		
+		    for(i=0;i<num;i++)
+		    {
+			    for(k=num; k>i; k--)
+			    {
+				    document.write("<center>");
+			    }
+                number = 1;
+                for(j=0;j<=i;j++)
+                {
+                    document.write(number+" ");
+                    number = number * (i - j) / (j + 1);
+                }
+                document.write("<br>");
+            }
+
+        </script>
+    </head>
+</html>
