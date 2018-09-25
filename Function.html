@@ -1,0 +1,110 @@
+<html>
+    <body>
+        <script>
+            function identity(a){
+                return a;
+            }
+            document.write("identity: "+identity(3));
+            document.write("<br>");
+
+            /*----------------*/
+            function add(a,b){
+                return a+b;
+            }
+
+            function mul(p,q){
+                return p*q;
+            }
+
+            document.write("simple addition: "+add(3,4));
+            document.write("<br>");
+            document.write("simple multiplication:"+mul(3,4));
+
+            /*----------------*/
+
+            function identityf(a)
+            {
+                return function idf(){
+                    x=identity(a);
+                    return x;
+                }
+            }
+            idf=identityf(3);
+            document.write("<br>")
+            document.write("function-return: "+idf());
+            document.write("<br>");
+
+            /*---------------*/
+
+            function addf(a)
+            {
+                return function(b){
+                    sum=add(a,b);
+                    return sum;
+                };
+            }
+            document.write("addition in two invocations: "+addf(3)(4));
+
+             document.write("<br>");
+
+            /*---------------*/
+
+
+            function applyf(b in)
+            {
+                return function(b){
+                    return function(c){
+                        return bin(b,c);
+                    };
+                };
+            }
+            addf=applyf(add);
+
+            document.write("addition binary: "+addf(3)(4));
+            document.write("<br>");
+            document.write("multiplication binary: "+applyf(mul)(5)(6));
+            document.write("<br>");
+
+            /*---------------*/
+
+            function curry(add, z){
+                return function(y){
+                    return add(z,y);
+                };
+            }
+
+            add3 = curry(add, 3);
+            document.write("function as argument in addition: "+add3(4));
+            document.write("<br>");
+            document.write("function as argument in multiplication: "+curry(mul, 3)(4));
+
+            document.write("<br>");
+
+            /*----------------*/
+
+
+            function inc(k){
+                 add1 = curry(add,1);
+                 return add1(k);
+            }
+            document.write("increment: "+inc(5));
+            document.write("<br>")
+            document.write("increment: "+inc(inc(5)));
+
+            document.write("<br>");
+
+            /*---------------*/
+
+            function methodize(bin){
+                bin:function(){
+                    return add()
+
+                }
+                
+            }
+
+        </script>
+        
+
+    </body>
+</html>
