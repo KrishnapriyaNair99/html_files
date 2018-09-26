@@ -16,9 +16,8 @@
                 return p*q;
             }
 
-            document.write("simple addition: "+add(3,4));
-            document.write("<br>");
-            document.write("simple multiplication:"+mul(3,4));
+            document.write("simple addition: "+add(3,4)+"<br>");
+            document.write("simple multiplication:"+mul(3,4)+"<br>");
 
             /*----------------*/
 
@@ -30,9 +29,7 @@
                 }
             }
             idf=identityf(3);
-            document.write("<br>")
-            document.write("function-return: "+idf());
-            document.write("<br>");
+            document.write("function-return: "+idf()+"<br>");
 
             /*---------------*/
 
@@ -43,14 +40,12 @@
                     return sum;
                 };
             }
-            document.write("addition in two invocations: "+addf(3)(4));
-
-             document.write("<br>");
+            document.write("addition in two invocations: "+addf(3)(4)+"<br>");
 
             /*---------------*/
 
 
-            function applyf(b in)
+            function applyf(bin)
             {
                 return function(b){
                     return function(c){
@@ -60,10 +55,8 @@
             }
             addf=applyf(add);
 
-            document.write("addition binary: "+addf(3)(4));
-            document.write("<br>");
-            document.write("multiplication binary: "+applyf(mul)(5)(6));
-            document.write("<br>");
+            document.write("addition binary: "+addf(3)(4)+"<br>");
+            document.write("multiplication binary: "+applyf(mul)(5)(6)+"<br>");
 
             /*---------------*/
 
@@ -74,35 +67,61 @@
             }
 
             add3 = curry(add, 3);
-            document.write("function as argument in addition: "+add3(4));
-            document.write("<br>");
-            document.write("function as argument in multiplication: "+curry(mul, 3)(4));
-
-            document.write("<br>");
+            document.write("function as argument in addition: "+add3(4)+"<br>");
+            document.write("function as argument in multiplication: "+curry(mul, 3)(4)+"<br>");
 
             /*----------------*/
 
+            var incx = addf(1);
+            var incy = curry(add, 1);
+            var incz = applyf(add)(1);
 
-            function inc(k){
-                 add1 = curry(add,1);
-                 return add1(k);
-            }
-            document.write("increment: "+inc(5));
+            document.write("increment-first way: "+incx(5)+"<br>");
+            document.write("increment-first way: "+incx(incx(5))+"<br>");
+
+            document.write("increment-second way: "+incy(5));
             document.write("<br>")
-            document.write("increment: "+inc(inc(5)));
+            document.write("increment-second way: "+incy(incy(5))+"<br>");
 
-            document.write("<br>");
+            document.write("increment-third way: "+incz(5));
+            document.write("<br>")
+            document.write("increment-third way: "+incz(incz(5))+"<br>");
 
             /*---------------*/
 
-            function methodize(bin){
-                bin:function(){
-                    return add()
-
-                }
-                
+            function methodize(a){
+                return function(y){
+                    return a(this,y);
+                };
             }
 
+            Number.prototype.add = methodize(add);
+            document.write("Methodizing: "+(3).add(4)+"<br>");
+
+            /*--------------*/
+
+            function twice(bin){
+                return function(un){
+                    return bin(un, un);
+                };
+            }
+
+            var double=twice(add);
+            document.write("binary function returns unary function which doubles: "+double(11)+"<br>");
+
+            var square =  twice(mul);
+            document.write("binary function returns unary function which squares: "+square(11)+"<br>");
+            
+            /*-------------*/
+
+            function composeu(un1,un2){
+                return function(un){
+                    return un2(un1(un));
+                } 
+            }
+
+            var compose=composeu(double,square)(3);
+            document.write("unary function which takes two unary function and return an unary function: "+compose);
         </script>
         
 
