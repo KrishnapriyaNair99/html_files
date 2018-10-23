@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <link href="jqueryform.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="./jqueryform-add.js"></script>
+        <script src="./jqueryform-sort.js"></script>
+     
+    </head>
+    <body>
+            <form>
+                <input type="text" id="name" placeholder="Name" onfocus="this.value=''">
+                
+                <input type="text" id="age" placeholder="Age">
+                <input type="button" class="add" value="Add">
+               
+            </form>
+            <table  border="1" id="mytable">
+                <thead>
+                    <tr>
+                        <th class="tab-name">Name</th>
+                       
+                        <select id="dropdown1" id="age_order" onclick="sort_name()">
+                            <option id="none">namesort</option>
+                            <option value="desc">ascending</option>
+                            <option value="asc">descending</option>
+                        </select>
+                        <th class=age>Age</th>
+                        <select id="dropdown2" id="name_order" onclick="sort_age()">
+                            <option id="none">agesort</option>
+                            <option value="desc">ascending</option>
+                            <option value="asc">descending</option>
+                        </select>
+                    </tr>
+                </thead>
+                <tbody id="table1">
+                    <tr></tr>
+                </tbody>
+            </table>
+</html>
